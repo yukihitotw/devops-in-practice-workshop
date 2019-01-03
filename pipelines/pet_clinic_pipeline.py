@@ -29,7 +29,6 @@ stage.set_has_manual_approval()
 job = stage\
 	.ensure_job("complete-canary")\
     .ensure_environment_variables({'GCLOUD_ZONE': 'us-central1-a', 'GCLOUD_PROJECT_ID': 'devops-workshop-123', 'GCLOUD_CLUSTER': 'devops-workshop-gke'})\
-    .ensure_encrypted_environment_variables(secret_variables)
 job.set_elastic_profile_id('kubectl')
 job.add_task(ExecTask(['bash', '-c', 'echo $GCLOUD_SERVICE_KEY | base64 -d > secret.json && chmod 600 secret.json']))
 job.add_task(ExecTask(['bash', '-c', 'gcloud auth activate-service-account --key-file secret.json']))
